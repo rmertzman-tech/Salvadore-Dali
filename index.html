@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRF Synthesizer (Salvador Dalí Demo)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8">
+
+    <div id="app" class="w-full max-w-7xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold">PRF Synthesizer (Salvador Dalí Demo)</h1>
+            <p class="text-gray-600 mt-2">This is a pre-populated example to demonstrate the potential of the PRF analysis.</p>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column: Info -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">About This Demo</h2>
+                    <p class="text-gray-700 mb-4">The text in these boxes has been pre-filled with reflections from the perspective of Salvador Dalí, based on his writings and life.</p>
+                    <p class="text-gray-700">Notice how his framework allows for radical transformation while maintaining a coherent core identity. This is the level of detail to aim for in your own work.</p>
+                </div>
+                 <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">Your Task</h2>
+                    <p class="text-gray-700">Read through these reflections and the sample synthesis. Then, read the AI's feedback to see how it identifies themes and asks deeper questions. Use this as a model for your own PRF project.</p>
+                </div>
+            </div>
+
+            <!-- Right Column: Synthesis & Analysis -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">Review of Pre-populated Data</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-[400px] overflow-y-auto p-2 bg-gray-50 rounded-lg">
+                        <textarea id="beliefs-display" class="w-full h-full p-2 border rounded-md bg-white" readonly></textarea>
+                        <textarea id="rules-display" class="w-full h-full p-2 border rounded-md bg-white" readonly></textarea>
+                        <textarea id="ontology-display" class="w-full h-full p-2 border rounded-md bg-white" readonly></textarea>
+                        <textarea id="authenticity-display" class="w-full h-full p-2 border rounded-md bg-white" readonly></textarea>
+                        <textarea id="assembly_history-display" class="w-full h-full p-2 border rounded-md bg-white" readonly></textarea>
+                        <textarea id="future_pull-display" class="w-full h-full p-2 border rounded-md bg-white" readonly></textarea>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h2 class="text-xl font-bold mb-4">Sample Synthesis</h2>
+                    <textarea id="synthesis-input" class="w-full h-80 p-3 border border-gray-300 rounded-lg" readonly></textarea>
+                    
+                    <div id="ai-analysis-card" class="mt-6">
+                        <h3 class="font-semibold mb-2 text-indigo-700 text-xl">Sample AI Analysis & Feedback</h3>
+                        <div id="ai-analysis-display" class="w-full min-h-[100px] p-3 bg-gray-50 border rounded-lg whitespace-pre-wrap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const displays = {
+                beliefs: document.getElementById('beliefs-display'),
+                rules: document.getElementById('rules-display'),
+                ontology: document.getElementById('ontology-display'),
+                authenticity: document.getElementById('authenticity-display'),
+                assembly_history: document.getElementById('assembly_history-display'),
+                future_pull: document.getElementById('future_pull-display'),
+                synthesis: document.getElementById('synthesis-input'),
+                ai: document.getElementById('ai-analysis-display'),
+            };
+
+            const demoData = {
+                beliefs: `(General)\nMy core belief is that one must never choose between reason and intuition. The most profound truths are found in the "critical and systematic objectification" of the most delirious, irrational associations. I believe the artist is not a mere painter of dreams, but a "constructor of reality" who gives tangible form to the psychological world.\n\n(Specific Challenge: Responding to the Atomic Age)\nMy belief about this challenge is that the atomic bomb fundamentally changed reality itself, revealing it to be discontinuous and particulate. This required a new artistic paradigm—"Nuclear Mysticism"—that could synthesize this new scientific reality with the timeless truths of classical art and religion.`,
+                rules: `(General)\nMy primary rule is the "paranoiac-critical method." This is not madness, but a systematic process for interpreting and objectifying the irrational images of the subconscious. It is a rule that forces my technical virtuosity to serve psychological truth, preventing my art from becoming mere fantasy or academic exercise.\n\n(Specific Challenge: Responding to the Atomic Age)\nThe rule I followed was to adapt my artistic method to reflect the new atomic ontology. I had to visually represent the "disintegration" of matter, as seen in "The Disintegration of the Persistence of Memory," while maintaining my core commitment to classical technique. The rule was to transform, not abandon, my methods.`,
+                ontology: `(General)\nMy ontology is built on the concept of "identity doubling." I am myself, but I am also the continuation of my deceased older brother. This creates a recursive, non-linear understanding of identity. For me, the boundary between the dream world and the physical world is permeable; both are equally real and valid sources of information for my art.\n\n(Specific Challenge: Responding to the Atomic Age)\nThe atomic bomb shifted my fundamental categories of being from continuous to discontinuous. The "real" was no longer solid and stable, but a swarm of particles. This ontological shift is the key to understanding my later work. The most important 'things' that exist are no longer just objects, but the invisible forces that bind and separate them.`,
+                authenticity: `(General)\nAuthenticity is not a static state but a process of "constructor coherence" across time. It is the conscious and systematic modification of one's own identity. My morning declaration, "I am Salvador Dalí," is not narcissism; it is the daily affirmation of a successfully constructed, authentic self. My public persona is not a mask; it is a deliberately built extension of my artistic project.\n\n(Specific Challenge: Responding to the Atomic Age)\nI maintained my authenticity through this radical shift by applying my core "identity kernel"—technical virtuosity, psychological truth, and systematic innovation—to a new reality. The transformation to Nuclear Mysticism was an authentic act because it was a coherent and necessary response to my changed understanding of the world. To have ignored the atomic age would have been inauthentic.`,
+                assembly_history: `My assembly history was defined by a series of crucial inputs: the early trauma of my deceased brother, which established the theme of the double; rigorous classical art training, which provided my technical foundation; Freudian psychoanalysis, which gave me a system for exploring the unconscious; and the collapse of European civilization, which created the need for new forms of meaning-making. Each of these was a necessary component in the construction of my PRF.`,
+                future_pull: `My entire life has been guided by a "future pull" toward what I call "immortality consciousness." Every action, from the most serious painting to the most outrageous publicity stunt, was a calculated step toward building a lasting artistic legacy. My goal was not just to be a great painter, but to become a "constructor" whose methods and ideas would influence the future of art and thought itself. This long-term vision provided the "present constraint" for all my creative decisions.`,
+                synthesis: `My Personal Reality Framework is a system designed to achieve "constructor coherence" across time. My 'assembly history'—defined by the trauma of the double and a rigorous classical training—created an identity kernel committed to the systematic exploration of the irrational. This allowed me to develop the "paranoiac-critical method," a rule-based system for making the subconscious tangible and real.\n\nThis framework was tested and proven by the challenge of the atomic age. My ontology shifted from a Freudian, dream-based reality to a quantum, particle-based reality. However, because my core commitment was to systematic innovation, I could adapt my methods to this new understanding without losing my authentic identity. The "disintegration" of my famous clocks was not a break from my past, but a coherent evolution of it.\n\nMy 'future pull'—the desire for an immortal artistic legacy—provided the ultimate guiding principle. Every transformation was a deliberate step toward becoming the artist who could synthesize classicism, psychology, and modern science. My synthesis is that true authenticity is not found in a static, unchanging self, but in the rigorous and conscious construction of an identity that can adapt and integrate new realities without losing its core principles.`,
+                ai: `Thank you for these detailed and highly systematic reflections. Your framework reveals a profound understanding of the self as a consciously constructed system.\n\n**Key Themes:**\n1.  **Systematic Innovation:** A core theme is your rejection of a false choice between reason and intuition. Your "paranoiac-critical method" is a rule-based system designed to explore the irrational, demonstrating a unique fusion of systematic thought and creative delirium.\n2.  **Coherence Through Transformation:** You show that authenticity is not about being static, but about adapting to new realities in a way that is consistent with your core identity. Your shift to "Nuclear Mysticism" was not a rejection of your past, but a logical evolution of it.\n3.  **The Artist as Reality Constructor:** You do not see yourself as a passive observer of the world, but as an active participant in its construction. Your art and your public persona are presented as deliberate creations designed to shape reality itself.\n\n**Potential Tensions:**\n- Your framework places immense value on a consciously constructed, public persona as an extension of your artistic project. How do you reconcile this with the Freudian idea of an authentic self that is often hidden in the deep, unmanaged parts of the unconscious? Is the Dalí "character" a tool for revealing psychological truth, or could it sometimes be a barrier to it?\n\n**A Question for Deeper Synthesis:**\n- You successfully integrated the seemingly contradictory worlds of classical art, Freudian psychology, and nuclear physics. What can your personal synthesis teach us about how society can integrate its own conflicting systems—such as tradition and technology, or individualism and community—to create a more coherent and resilient future?`
+            };
+
+            Object.keys(displays).forEach(key => {
+                if (demoData[key]) {
+                    displays[key].value = demoData[key];
+                    displays[key].textContent = demoData[key];
+                }
+            });
+        });
+    </script>
+</body>
+</html>
