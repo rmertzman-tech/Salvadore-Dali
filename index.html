@@ -103,6 +103,7 @@
                 ai: `Thank you for these extraordinary and systematic reflections. Your framework demonstrates a unique and powerful synthesis of the rational and the irrational, the classical and the avant-garde.\n\n**Key Themes:**\n1.  **Systematic Irrationality:** A central theme is your unique approach of using highly rational, controlled, and systematic methods (like the paranoiac-critical method and classical technique) to explore the depths of the irrational subconscious. You don't just surrender to chaos; you master it.\n2.  **Identity as a Construct:** You consistently treat your own identity—both personal and public—as a deliberate work of art. Your authenticity is not about being 'natural,' but about the coherent and purposeful construction of a self capable of achieving your artistic goals.\n3.  **Adaptive Synthesis:** Your life narrative shows a remarkable ability to absorb and synthesize new, seemingly contradictory worldviews (Freudian psychology, quantum physics, Catholic mysticism) into your evolving framework without ever losing your core identity as a technical master and systematic innovator.\n\n**Potential Tensions:**\n- You placed an extremely high value on your own individual genius and artistic immortality, yet you also engaged deeply with universal human experiences like dreams, desires, and later, the universal anxieties of the atomic age. How did you balance the pursuit of a singular, immortal 'Dalí' with the creation of art that spoke to the collective human condition?\n\n**A Question for Deeper Synthesis:**\n- You famously said, "The only difference between me and a madman is that I am not mad." Your entire method relies on a controlled "paranoia." Where, in your framework, is the precise line between the artist who masterfully uses irrationality as a tool, and the person who is simply mastered by it? What is the 'governor' or 'meta-rule' that maintains that critical distinction?`
             };
 
+            const DEMO_NAME = 'Salvador Dalí';
             const loadDemoBtn = document.getElementById('load-demo-btn');
             const DATA_KEYS = {
                 beliefs: 'prf_beliefs_data',
@@ -112,6 +113,7 @@
                 assembly_history: 'prf_assembly_history_data',
                 future_pull: 'prf_future_pull_data'
             };
+            const DEMO_NAME_KEY = 'prf_current_demo_name';
 
             function showMessage(message, type = 'success') {
                 const toast = document.createElement('div');
@@ -133,10 +135,11 @@
 
             loadDemoBtn.addEventListener('click', () => {
                 try {
+                    localStorage.setItem(DEMO_NAME_KEY, DEMO_NAME);
                     Object.keys(DATA_KEYS).forEach(key => {
                         localStorage.setItem(DATA_KEYS[key], demoData[key]);
                     });
-                    showMessage('Demo data has been successfully saved to your browser. You can now load it in the main PRF Synthesizer app.');
+                    showMessage('Demo data has been successfully saved. You can now load it in the main PRF Synthesizer app.');
                 } catch (e) {
                     console.error("Error saving to localStorage:", e);
                     showMessage('Could not save demo data. Your browser may be in private mode or have storage disabled.', 'error');
