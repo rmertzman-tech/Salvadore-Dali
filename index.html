@@ -15,35 +15,45 @@
             border-radius: 1rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
+        .btn {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 p-4 md:p-8">
 
     <div id="app" class="w-full max-w-7xl mx-auto">
         
-        <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-4xl font-bold">PRF Synthesizer (Salvador Dalí Demo)</h1>
             <p class="text-gray-600 mt-2">This is a pre-populated example to demonstrate the potential of the PRF analysis.</p>
         </div>
 
-        <!-- Main Workspace -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Left Column: Info -->
             <div class="lg:col-span-1 space-y-6">
                 <div class="card p-6">
                     <h2 class="text-xl font-bold mb-4">About This Demo</h2>
-                    <p class="text-gray-700 mb-4">The text in these boxes has been pre-filled with reflections from the perspective of Salvador Dalí, based on his writings and life.</p>
-                    <p class="text-gray-700">Notice how his framework allows for radical transformation while maintaining a coherent core identity. This is the level of detail to aim for in your own work.</p>
+                    <p class="text-gray-700 mb-4">The text in these boxes has been pre-filled with reflections from the perspective of Salvador Dalí, based on his extensive writings and artistic evolution.</p>
+                    <p class="text-gray-700">Read through the reflections, and then use the button below to load this data into the main Synthesizer app for analysis.</p>
+                    <button id="load-demo-btn" class="btn btn-primary w-full mt-4 py-3 rounded-lg font-semibold">Load this Demo into Synthesizer</button>
                 </div>
                  <div class="card p-6">
                     <h2 class="text-xl font-bold mb-4">Your Task</h2>
-                    <p class="text-gray-700">Read through these reflections and the sample synthesis. Then, read the AI's feedback to see how it identifies themes and asks deeper questions. Use this as a model for your own PRF project.</p>
+                    <p class="text-gray-700">After loading the data, open the main PRF Synthesizer. You can then use the "Guided Synthesis" feature to have a conversation with the AI tutor about this example, providing a model for your own analysis.</p>
                 </div>
             </div>
 
-            <!-- Right Column: Synthesis & Analysis -->
             <div class="lg:col-span-2 space-y-6">
                 <div class="card p-6">
                     <h2 class="text-xl font-bold mb-4">Review of Pre-populated Data</h2>
@@ -60,7 +70,7 @@
                     <h2 class="text-xl font-bold mb-4">Sample Synthesis</h2>
                     <textarea id="synthesis-input" class="w-full h-80 p-3 border border-gray-300 rounded-lg" readonly></textarea>
                     
-                    <div id="ai-analysis-card" class="mt-6">
+                    <div class="mt-6">
                         <h3 class="font-semibold mb-2 text-indigo-700 text-xl">Sample AI Analysis & Feedback</h3>
                         <div id="ai-analysis-display" class="w-full min-h-[100px] p-3 bg-gray-50 border rounded-lg whitespace-pre-wrap"></div>
                     </div>
@@ -83,20 +93,53 @@
             };
 
             const demoData = {
-                beliefs: `(General)\nMy core belief is that one must never choose between reason and intuition. The most profound truths are found in the "critical and systematic objectification" of the most delirious, irrational associations. I believe the artist is not a mere painter of dreams, but a "constructor of reality" who gives tangible form to the psychological world.\n\n(Specific Challenge: Responding to the Atomic Age)\nMy belief about this challenge is that the atomic bomb fundamentally changed reality itself, revealing it to be discontinuous and particulate. This required a new artistic paradigm—"Nuclear Mysticism"—that could synthesize this new scientific reality with the timeless truths of classical art and religion.`,
-                rules: `(General)\nMy primary rule is the "paranoiac-critical method." This is not madness, but a systematic process for interpreting and objectifying the irrational images of the subconscious. It is a rule that forces my technical virtuosity to serve psychological truth, preventing my art from becoming mere fantasy or academic exercise.\n\n(Specific Challenge: Responding to the Atomic Age)\nThe rule I followed was to adapt my artistic method to reflect the new atomic ontology. I had to visually represent the "disintegration" of matter, as seen in "The Disintegration of the Persistence of Memory," while maintaining my core commitment to classical technique. The rule was to transform, not abandon, my methods.`,
-                ontology: `(General)\nMy ontology is built on the concept of "identity doubling." I am myself, but I am also the continuation of my deceased older brother. This creates a recursive, non-linear understanding of identity. For me, the boundary between the dream world and the physical world is permeable; both are equally real and valid sources of information for my art.\n\n(Specific Challenge: Responding to the Atomic Age)\nThe atomic bomb shifted my fundamental categories of being from continuous to discontinuous. The "real" was no longer solid and stable, but a swarm of particles. This ontological shift is the key to understanding my later work. The most important 'things' that exist are no longer just objects, but the invisible forces that bind and separate them.`,
-                authenticity: `(General)\nAuthenticity is not a static state but a process of "constructor coherence" across time. It is the conscious and systematic modification of one's own identity. My morning declaration, "I am Salvador Dalí," is not narcissism; it is the daily affirmation of a successfully constructed, authentic self. My public persona is not a mask; it is a deliberately built extension of my artistic project.\n\n(Specific Challenge: Responding to the Atomic Age)\nI maintained my authenticity through this radical shift by applying my core "identity kernel"—technical virtuosity, psychological truth, and systematic innovation—to a new reality. The transformation to Nuclear Mysticism was an authentic act because it was a coherent and necessary response to my changed understanding of the world. To have ignored the atomic age would have been inauthentic.`,
-                assembly_history: `My assembly history was defined by a series of crucial inputs: the early trauma of my deceased brother, which established the theme of the double; rigorous classical art training, which provided my technical foundation; Freudian psychoanalysis, which gave me a system for exploring the unconscious; and the collapse of European civilization, which created the need for new forms of meaning-making. Each of these was a necessary component in the construction of my PRF.`,
-                future_pull: `My entire life has been guided by a "future pull" toward what I call "immortality consciousness." Every action, from the most serious painting to the most outrageous publicity stunt, was a calculated step toward building a lasting artistic legacy. My goal was not just to be a great painter, but to become a "constructor" whose methods and ideas would influence the future of art and thought itself. This long-term vision provided the "present constraint" for all my creative decisions.`,
-                synthesis: `My Personal Reality Framework is a system designed to achieve "constructor coherence" across time. My 'assembly history'—defined by the trauma of the double and a rigorous classical training—created an identity kernel committed to the systematic exploration of the irrational. This allowed me to develop the "paranoiac-critical method," a rule-based system for making the subconscious tangible and real.\n\nThis framework was tested and proven by the challenge of the atomic age. My ontology shifted from a Freudian, dream-based reality to a quantum, particle-based reality. However, because my core commitment was to systematic innovation, I could adapt my methods to this new understanding without losing my authentic identity. The "disintegration" of my famous clocks was not a break from my past, but a coherent evolution of it.\n\nMy 'future pull'—the desire for an immortal artistic legacy—provided the ultimate guiding principle. Every transformation was a deliberate step toward becoming the artist who could synthesize classicism, psychology, and modern science. My synthesis is that true authenticity is not found in a static, unchanging self, but in the rigorous and conscious construction of an identity that can adapt and integrate new realities without losing its core principles.`,
-                ai: `Thank you for these detailed and highly systematic reflections. Your framework reveals a profound understanding of the self as a consciously constructed system.\n\n**Key Themes:**\n1.  **Systematic Innovation:** A core theme is your rejection of a false choice between reason and intuition. Your "paranoiac-critical method" is a rule-based system designed to explore the irrational, demonstrating a unique fusion of systematic thought and creative delirium.\n2.  **Coherence Through Transformation:** You show that authenticity is not about being static, but about adapting to new realities in a way that is consistent with your core identity. Your shift to "Nuclear Mysticism" was not a rejection of your past, but a logical evolution of it.\n3.  **The Artist as Reality Constructor:** You do not see yourself as a passive observer of the world, but as an active participant in its construction. Your art and your public persona are presented as deliberate creations designed to shape reality itself.\n\n**Potential Tensions:**\n- Your framework places immense value on a consciously constructed, public persona as an extension of your artistic project. How do you reconcile this with the Freudian idea of an authentic self that is often hidden in the deep, unmanaged parts of the unconscious? Is the Dalí "character" a tool for revealing psychological truth, or could it sometimes be a barrier to it?\n\n**A Question for Deeper Synthesis:**\n- You successfully integrated the seemingly contradictory worlds of classical art, Freudian psychology, and nuclear physics. What can your personal synthesis teach us about how society can integrate its own conflicting systems—such as tradition and technology, or individualism and community—to create a more coherent and resilient future?`
+                beliefs: `My most central belief is that the irrational is the only true path to knowledge. I believe that the contents of the subconscious mind—dreams, desires, paranoia—contain a truth more profound than that of everyday reality. Later in life, I came to believe that the discoveries of modern physics, particularly quantum mechanics and the structure of the atom, were a new path to the mystical and the divine. For me, science and spirituality were not opposed; they were two sides of the same glorious, incomprehensible reality.`,
+                rules: `My primary rule for creation was the 'paranoiac-critical method.' This was a system for actively inducing a state of paranoia to misinterpret the world, allowing me to see hidden forms and connections—like seeing elephants in the reflection of swans. This was not madness, but a controlled, systematic exploration of the irrational. Another rule was an absolute mastery of classical technique. To paint like a madman, one must first know how to paint like Raphael. This technical perfection was the necessary container for my irrational explorations.`,
+                ontology: `In my surrealist phase, my ontology was Freudian: what was most 'real' were the hidden desires and traumas of the subconscious. Reality was a thin veil over a swirling chaos of symbols. After the atomic bomb in 1945, my ontology underwent a radical shift to what I called 'Nuclear Mysticism.' I began to see reality not as continuous, but as discontinuous and composed of atomic particles. The most 'real' thing became the quantum leap, the space between things. The "Persistence of Memory" had to be updated to the "Disintegration of the Persistence of Memory" to reflect this new, more fundamental truth.`,
+                authenticity: `Authenticity for me was not about being simple or 'natural'—it was about maintaining a coherent identity while undergoing radical transformations. My famous public persona, the mustache, the eccentricities—these were not inauthentic masks, but tools designed to protect and enhance my core artistic mission. The authentic Dalí was the one who could harness paranoia for artistic creation, who could synthesize modern physics with Catholic mysticism, and who never, ever compromised on technical virtuosity. "The only difference between me and a madman is that I am not mad." This control is the essence of my authenticity.`,
+                assembly_history: `My assembly history is defined by a fundamental duality. I was born nine months after the death of my older brother, who was also named Salvador. This created a lifelong struggle with identity; was I myself, or a replacement? This 'non-well-founded' sense of self became the engine of my art. My time with the Surrealists in Paris was a key event, giving me the intellectual framework of Freud to explore my inner world. But my expulsion from the group was equally formative, forcing me to become a system unto myself, independent of any movement.`,
+                future_pull: `My 'future pull' was the singular, unwavering vision of my own artistic immortality. Every action, every painting, every public stunt was a step toward securing my place in the pantheon of the great masters, alongside Vermeer and Velázquez. In my later years, this evolved into a vision of a grand synthesis of art, science, and religion. I wanted to create a new, modern form of sacred art that could capture the spiritual anxieties and discoveries of the atomic age. This vision of a 'nuclear mystic' future guided my work and ensured my continued relevance.`,
+                synthesis: `My framework is built on the unwavering belief that the subconscious mind is a landscape of profound truth, accessible only through a rigorous and systematic exploration of the irrational. This ontological commitment to the power of paranoia and dreams directly informs my primary rule for creation: the paranoiac-critical method, a tool that requires the technical mastery of a classical painter to give form to the visions of a madman.\n\nMy personal authenticity was forged in the crucible of a fractured identity, a lifelong effort to become the 'true' Salvador Dalí. My assembly history provided the psychological drama, and my time with the Surrealists provided the intellectual tools to transform that drama into art. The 'future pull' of artistic immortality was my North Star, guiding me through surrealism, nuclear mysticism, and my final grand synthesis of science and faith. My synthesis is this: the artist's role is not to copy the world, but to create a new one, by systematically mining the chaotic genius of the human mind and giving it form with the discipline of a classical master.`,
+                ai: `Thank you for these extraordinary and systematic reflections. Your framework demonstrates a unique and powerful synthesis of the rational and the irrational, the classical and the avant-garde.\n\n**Key Themes:**\n1.  **Systematic Irrationality:** A central theme is your unique approach of using highly rational, controlled, and systematic methods (like the paranoiac-critical method and classical technique) to explore the depths of the irrational subconscious. You don't just surrender to chaos; you master it.\n2.  **Identity as a Construct:** You consistently treat your own identity—both personal and public—as a deliberate work of art. Your authenticity is not about being 'natural,' but about the coherent and purposeful construction of a self capable of achieving your artistic goals.\n3.  **Adaptive Synthesis:** Your life narrative shows a remarkable ability to absorb and synthesize new, seemingly contradictory worldviews (Freudian psychology, quantum physics, Catholic mysticism) into your evolving framework without ever losing your core identity as a technical master and systematic innovator.\n\n**Potential Tensions:**\n- You placed an extremely high value on your own individual genius and artistic immortality, yet you also engaged deeply with universal human experiences like dreams, desires, and later, the universal anxieties of the atomic age. How did you balance the pursuit of a singular, immortal 'Dalí' with the creation of art that spoke to the collective human condition?\n\n**A Question for Deeper Synthesis:**\n- You famously said, "The only difference between me and a madman is that I am not mad." Your entire method relies on a controlled "paranoia." Where, in your framework, is the precise line between the artist who masterfully uses irrationality as a tool, and the person who is simply mastered by it? What is the 'governor' or 'meta-rule' that maintains that critical distinction?`
             };
 
+            const loadDemoBtn = document.getElementById('load-demo-btn');
+            const DATA_KEYS = {
+                beliefs: 'prf_beliefs_data',
+                rules: 'prf_rules_data',
+                ontology: 'prf_ontology_data',
+                authenticity: 'prf_authenticity_data',
+                assembly_history: 'prf_assembly_history_data',
+                future_pull: 'prf_future_pull_data'
+            };
+
+            function showMessage(message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.textContent = message;
+                let bgColor = type === 'success' ? 'bg-green-600' : 'bg-red-600';
+                toast.className = `fixed top-5 left-1/2 -translate-x-1/2 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg transition-opacity duration-300`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.style.opacity = '0', 2700);
+                setTimeout(() => toast.remove(), 3000);
+            }
+            
+            // Populate the display boxes on page load
             Object.keys(displays).forEach(key => {
                 if (demoData[key]) {
                     displays[key].value = demoData[key];
                     displays[key].textContent = demoData[key];
+                }
+            });
+
+            loadDemoBtn.addEventListener('click', () => {
+                try {
+                    Object.keys(DATA_KEYS).forEach(key => {
+                        localStorage.setItem(DATA_KEYS[key], demoData[key]);
+                    });
+                    showMessage('Demo data has been successfully saved to your browser. You can now load it in the main PRF Synthesizer app.');
+                } catch (e) {
+                    console.error("Error saving to localStorage:", e);
+                    showMessage('Could not save demo data. Your browser may be in private mode or have storage disabled.', 'error');
                 }
             });
         });
